@@ -5,8 +5,9 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.notes.databinding.ActivityRootBinding
 import com.notes.ui.list.NoteListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class RootActivity : AppCompatActivity(){
 
     private lateinit var viewBinding: ActivityRootBinding

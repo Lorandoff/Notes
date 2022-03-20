@@ -9,11 +9,13 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.notes.databinding.FragmentNoteDetailsBinding
 import com.notes.ui.list.NoteListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NoteDetailsFragment : Fragment(
 ) {
     private lateinit var _binding : FragmentNoteDetailsBinding
-    private val viewModel by viewModels<NoteListViewModel>()
+    private val viewModel : NoteListViewModel by viewModels()
 
     // private val  viewModel by lazy {
    //     DependencyManager.noteListViewModel()
