@@ -1,5 +1,6 @@
 package com.notes.ui.list
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -97,7 +98,9 @@ class NoteListFragment(
     private fun onSortButtonClicked(){
         setVisibility(clicked)
         setAnimation(clicked)
-        setClickable(clicked)
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O){
+            setClickable(clicked)
+            }
         clicked = !clicked
     }
 
