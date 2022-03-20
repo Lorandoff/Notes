@@ -17,7 +17,9 @@ interface NoteDao {
     @Delete
     fun DeleteNote(note : NoteDbo)
 
-    @Query("SELECT * FROM notes ORDER BY modifiedAt ASC")
-    fun sortByModifiedASC() : List<NoteDbo>
+    @Query("SELECT * FROM notes ORDER BY " +
+            " CASE WHEN :isAsc = 1 THEN modifiedAt END ASC," +
+            "CASE WHEN :isAsc = 2 THEN modifiedAt END DESC")
+    fun sortByModified(isAsc : Int) : List<NoteDbo>
 
 }

@@ -17,9 +17,7 @@ class NoteDetailsFragment : Fragment(
     private lateinit var _binding : FragmentNoteDetailsBinding
     private val viewModel : NoteListViewModel by viewModels()
 
-    // private val  viewModel by lazy {
-   //     DependencyManager.noteListViewModel()
-  //  }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,8 +39,6 @@ class NoteDetailsFragment : Fragment(
         _binding.button.setOnClickListener {
             if (_binding.editTextTitle.text.isNotBlank()
                 && _binding.editTextContent.text.isNotBlank()) {
-                //_binding.editTextTitle.text
-                //_binding.editTextContent.text
                 viewModel.insertNotetoDatabase(_binding.editTextTitle.text.toString(),
                     _binding.editTextContent.text.toString()
                 )
@@ -50,13 +46,7 @@ class NoteDetailsFragment : Fragment(
                 Snackbar.make(view, "error", Snackbar.LENGTH_LONG)
             }
             }
-        //requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
-        //object : OnBackPressedCallback(true){
-        //    override fun handleOnBackPressed() {
-        //        requireActivity().supportFragmentManager.popBackStack()
-        //    }
 
-       // })
     }
 companion object{
     fun newInstance() : NoteDetailsFragment{

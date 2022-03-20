@@ -41,11 +41,11 @@ class NoteListViewModel @Inject constructor(
             )
         }
     }
-    fun sortList(){
+    fun sortList(isAsc : Int){
         if (_notes != null) {
             viewModelScope.launch(Dispatchers.IO) {
                 _notes.postValue(
-                    noteDatabase.noteDao.sortByModifiedASC().map {
+                    noteDatabase.noteDao.sortByModified(isAsc).map {
                         it.convertToNoteListItem()
                     }
                 )
@@ -62,9 +62,6 @@ class NoteListViewModel @Inject constructor(
             )
         finishWork()
         }
-        //_finish.value = true
-        //    _errorDataValidate.value = "Error data validate, please enter right text"
-
     }
     fun deledeNoteFromDatabase(noteDbo: NoteListItem){
         viewModelScope.launch(Dispatchers.IO) {
@@ -101,7 +98,6 @@ class NoteListViewModel @Inject constructor(
         _errorDataTitle.value = false
     }
     fun resDataInfoContentError(){
-  //      _finish.value = false
     }
     private fun finishWork(){
         _finish.postValue( Unit)

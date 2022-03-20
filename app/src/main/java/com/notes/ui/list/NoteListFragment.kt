@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -18,15 +20,18 @@ import dagger.hilt.android.AndroidEntryPoint
 class NoteListFragment(
 ) : Fragment() {
     private var _binding : FragmentNoteListBinding? = null
-    //@Inject
-    //lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    val viewModel : NoteListViewModel by viewModels()
-    //private lateinit var  viewModel : NoteListViewModel
-        //Log.d(
-      //      "fdsf", "viewModel"
-      //  )
-        //DependencyManager.noteListViewModel()
+    private var clicked = false
+    private val viewModel : NoteListViewModel by viewModels()
+
+    private val rotateOpen : Animation by lazy { AnimationUtils.loadAnimation(requireContext(),
+        R.anim.rotate_open_anim) }
+    private val rotateClose : Animation by lazy { AnimationUtils.loadAnimation(requireContext(),
+        R.anim.rotate_close_anim) }
+    private val fromBottom : Animation by lazy { AnimationUtils.loadAnimation(requireContext(),
+        R.anim.from_bottom_anim) }
+    private val toBottom : Animation by lazy { AnimationUtils.loadAnimation(requireContext(),
+        R.anim.to_bottom_anim) }
 
 
     private val recyclerViewAdapter = RecyclerViewAdapter()
@@ -42,16 +47,11 @@ class NoteListFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    //viewModel = ViewModelProvider(this, viewModelFactory)[NoteListViewModel::class.java]
+
 
         Log.d("fs", "onViewCreated")
         _binding!!.list.adapter = recyclerViewAdapter
-      //  _binding.list.addItemDecoration(
-       //     DividerItemDecoration(
-      //          requireContext(),
-       //         LinearLayout.VERTICAL
-       //     )
-       // )
+
         viewModel.getList()
         _binding!!.createNoteButton.setOnClickListener {
             viewModel.onCreateNoteClick()
@@ -60,8 +60,14 @@ class NoteListFragment(
         recyclerViewAdapter.onItemClickListener = {
             viewModel.deledeNoteFromDatabase(it)
         }
-        _binding!!.floatingActionButton2.setOnClickListener {
-            viewModel.sortList()
+        _binding!!.floatingActionButtonSort.setOnClickListener {
+            onSortButtonClicked()
+        }
+        _binding!!.floatingActionButtonSortAsc?.setOnClickListener {
+            viewModel.sortList(1)
+        }
+        _binding!!.floatingActionButtonSortDesc?.setOnClickListener {
+            viewModel.sortList(2)
         }
         viewModel.notes.observe(
             viewLifecycleOwner,
@@ -71,16 +77,7 @@ class NoteListFragment(
                 }
             }
         )
-       // viewModel.navigateToNoteCreation.observe(
-        //    viewLifecycleOwner,
-       //     {
-                //findImplementationOrThrow<FragmentNavigator>()
-                //    .navigateTo(
-                     //   NoteDetailsFragment()
-                 //   )
-          //  launchNoteDetailsFragment()
-       //     }
-      //  )
+
     }
 
     override fun onDestroyView() {
@@ -96,6 +93,43 @@ class NoteListFragment(
     }
     companion object{
 
+    }
+    private fun onSortButtonClicked(){
+        setVisibility(clicked)
+        setAnimation(clicked)
+        setClickable(clicked)
+        clicked = !clicked
+    }
+
+    private fun setAnimation(clicked: Boolean) {
+        if (!clicked){
+            _binding?.floatingActionButtonSortAsc?.startAnimation(fromBottom)
+            _binding?.floatingActionButtonSortDesc?.startAnimation(fromBottom)
+            _binding?.floatingActionButtonSort?.startAnimation(rotateOpen)
+        }else{
+            _binding?.floatingActionButtonSortAsc?.startAnimation(toBottom)
+            _binding?.floatingActionButtonSortAsc?.startAnimation(toBottom)
+            _binding?.floatingActionButtonSort?.startAnimation(rotateClose)
+        }
+    }
+
+    private fun setVisibility(clicked: Boolean) {
+        if (!clicked){
+            _binding?.floatingActionButtonSortAsc?.visibility  = View.VISIBLE
+            _binding?.floatingActionButtonSortDesc?.visibility = View.VISIBLE
+        }else{
+            _binding?.floatingActionButtonSortAsc?.visibility = View.INVISIBLE
+            _binding?.floatingActionButtonSortDesc?.visibility = View.INVISIBLE
+        }
+    }
+    private fun setClickable(clicked : Boolean){
+        if (!clicked){
+            _binding?.floatingActionButtonSortAsc?.isClickable= false
+            _binding?.floatingActionButtonSortDesc?.isClickable= false
+        }else{
+            _binding?.floatingActionButtonSortAsc?.isClickable = true
+            _binding?.floatingActionButtonSortDesc?.isClickable = true
+        }
     }
 }
     private class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {

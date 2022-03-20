@@ -23,7 +23,6 @@ class RootActivity : AppCompatActivity(){
                 viewBinding.container.id,
                 NoteListFragment()
             )
-            //.addToBackStack(null)
             .commit()
     }
 
