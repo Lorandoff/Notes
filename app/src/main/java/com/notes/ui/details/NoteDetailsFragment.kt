@@ -30,9 +30,10 @@ class NoteDetailsFragment : Fragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding.toolbar.setOnClickListener {
+        _binding.toolbar.setNavigationOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+
         viewModel.finish.observe(viewLifecycleOwner){
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -43,7 +44,7 @@ class NoteDetailsFragment : Fragment(
                     _binding.editTextContent.text.toString()
                 )
             }else{
-                Snackbar.make(view, "error", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "error", Snackbar.LENGTH_LONG).show()
             }
             }
 
