@@ -1,15 +1,15 @@
 package com.notes.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.notes.databinding.ActivityRootBinding
-import com.notes.ui._base.FragmentNavigator
 import com.notes.ui.list.NoteListFragment
 
-class RootActivity : AppCompatActivity(), FragmentNavigator {
+//@AndroidEntryPoint
+class RootActivity : AppCompatActivity(){
 
-    private var viewBinding: ActivityRootBinding? = null
+    private lateinit var viewBinding: ActivityRootBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,28 +18,18 @@ class RootActivity : AppCompatActivity(), FragmentNavigator {
         setContentView(viewBinding.root)
         supportFragmentManager
             .beginTransaction()
-            .add(
+            .replace(
                 viewBinding.container.id,
                 NoteListFragment()
             )
+            //.addToBackStack(null)
             .commit()
     }
 
-    override fun navigateTo(
-        fragment: Fragment
-    ) {
-        val viewBinding = this.viewBinding ?: return
-        supportFragmentManager
-            .beginTransaction()
-            .replace(
-                viewBinding.container.id,
-                fragment
-            )
-            .commit()
-    }
 
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
+            Log.d("fds", supportFragmentManager.backStackEntryCount.toString())
             supportFragmentManager.popBackStack()
         } else {
             super.onBackPressed()

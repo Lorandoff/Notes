@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter
     LocalDateTimeConverter::class
 )
 abstract class NoteDatabase : RoomDatabase() {
-    abstract fun noteDao(): NoteDao
+    abstract val noteDao: NoteDao
 }
 
 class LocalDateTimeConverter {

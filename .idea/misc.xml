@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Studio/notes-test-assignment-android/app/src/main/res/layout-land/activity_root.xml" value="0.1453125" />
+        <entry key="..\:/Android Studio/notes-test-assignment-android/app/src/main/res/layout-land/fragment_note_details.xml" value="0.14583333333333334" />
+        <entry key="..\:/Android Studio/notes-test-assignment-android/app/src/main/res/layout-land/fragment_note_list.xml" value="0.1453125" />
+        <entry key="..\:/Android Studio/notes-test-assignment-android/app/src/main/res/layout-land/list_item_note.xml" value="0.14583333333333334" />
+        <entry key="..\:/Android Studio/notes-test-assignment-android/app/src/main/res/layout/activity_root.xml" value="0.25" />
+        <entry key="..\:/Android Studio/notes-test-assignment-android/app/src/main/res/layout/fragment_note_details.xml" value="0.12635869565217392" />
+        <entry key="..\:/Android Studio/notes-test-assignment-android/app/src/main/res/layout/fragment_note_list.xml" value="0.25" />
+        <entry key="..\:/Android Studio/notes-test-assignment-android/app/src/main/res/layout/list_item_note.xml" value="0.16590678824721378" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.16394927536231885" />
         <entry key="app/src/main/res/layout/fragment_note_details.xml" value="0.16394927536231885" />
         <entry key="app/src/main/res/layout/fragment_note_list.xml" value="0.375" />
